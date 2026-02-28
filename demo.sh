@@ -16,6 +16,19 @@ monitor_memory() {
     free -m | awk 'NR==2{printf "Used: %sMB / Total: %sMB (%.2f%%)\n", $3, $2, $3*100/$2}'
 }
 
+# Function to display OS Details
+monitor_os() {
+    echo "--- OS Information ---"
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        echo "OS Name    : $NAME"
+        echo "OS Version : $VERSION"
+    else
+        echo "OS information not available"
+    fi
+}
+
 # Main execution
 monitor_disk
 monitor_memory
+monitor_os
